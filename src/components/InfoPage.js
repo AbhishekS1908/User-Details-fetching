@@ -4,6 +4,12 @@ import LoginImg from "../assets/job-bg.jpg";
 import { updateAPI } from "../API/listAPI";
 
 import { ToastContainer, toast } from "react-toastify";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaTwitter,
+  FaInstagram,
+} from "react-icons/fa";
 
 const InfoPage = () => {
   const navigateEnd = useNavigate();
@@ -40,14 +46,13 @@ const InfoPage = () => {
             autoClose: 2000,
             theme: "colored",
           });
-        }
-        else if(isChecked === false){
-            toast("Please fill the checkbox", {
-                type: "error",
-                position: "top-right",
-                autoClose: 2000,
-                theme: "colored",
-              }); 
+        } else if (isChecked === false) {
+          toast("Please fill the checkbox", {
+            type: "error",
+            position: "top-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
         }
       })
       .catch(function (error) {
@@ -71,6 +76,43 @@ const InfoPage = () => {
         <div className="grid grid-cols-2">
           <div className="flex">
             <img className="h-screen scale-x-150" src={LoginImg} alt="" />
+            <div className="absolute top-0 left-0 h-1/2 w-2/5 flex flex-col justify-center items-center">
+              <p className="md:text-white md:text-5xl md:font-bold md:pt-12 md:w-11/12 md:ml-12">
+                Let's join with us !
+              </p>
+              <p className="md:mt-12 md:text-white md:text-lg md:w-11/12 md:ml-12 md:font-medium">
+                Lorem Ipsum is simply dummy text of printing and typesetting
+                industry.
+              </p>
+              <div className="container mx-auto px-4 translate-y-96 flex flex-row">
+                <p className="text-white text-left translate-y-8 ml-2 text-sm">
+                  Copyright © 2022 Octilus Technologies
+                </p>
+                <div className="flex flex-row translate-y-8 scale-75 translate-x-44">
+                  <a
+                    href="https://www.facebook.com"
+                    className="text-white mx-3"
+                  >
+                    <FaFacebookF className="text-2xl" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com"
+                    className="text-white mx-3"
+                  >
+                    <FaLinkedinIn className="text-2xl" />
+                  </a>
+                  <a href="https://twitter.com" className="text-white mx-3">
+                    <FaTwitter className="text-2xl" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com"
+                    className="text-white mx-3"
+                  >
+                    <FaInstagram className="text-2xl" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="flex">

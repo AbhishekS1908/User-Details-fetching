@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoginImg from "../assets/job-bg.jpg";
+import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 
 import { userLogin } from "../API/listAPI";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaTwitter,
+  FaInstagram,
+} from "react-icons/fa";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +22,9 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+
+  const regex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const login = () => {
     setLoading(true);
@@ -35,6 +44,38 @@ const Login = () => {
           });
           console.log("success");
           navigate("/Info-page");
+        } else if (
+          collectDetails.email.length === 0 ||
+          collectDetails.user.length === 0 ||
+          collectDetails.gender.length === 0 ||
+          collectDetails.phone.length === 0
+        ) {
+          toast("Please fill all the fields", {
+            type: "error",
+            position: "top-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
+        } else if (
+          !isNaN(collectDetails.phone) ||
+          collectDetails.phone.length > 10
+        ) {
+          toast("Phone field should contain only 10 digits.", {
+            type: "error",
+            position: "top-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
+        } else if (
+          collectDetails.email !==
+          regex.test(String(collectDetails.email).toLowerCase())
+        ) {
+          toast("Email is invalid", {
+            type: "error",
+            position: "top-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
         }
       })
       .catch(function (error) {
@@ -53,14 +94,35 @@ const Login = () => {
       <div className="grid grid-cols-2">
         <div className="flex">
           <img className="h-screen scale-x-150" src={LoginImg} alt="" />
-          <div className="absolute top-0 left-0 h-1/2 w-1/3 flex justify-center items-center">
-            <p className="text-white text-4xl font-bold">
-              Text on top of image
+          <div className="absolute top-0 left-0 h-1/2 w-2/5 flex flex-col justify-center items-center">
+            <p className="md:text-white md:text-5xl md:font-bold md:pt-12 md:w-11/12 md:ml-12">
+              Let's join with us !
             </p>
-            
+            <p className="md:mt-12 md:text-white md:text-lg md:w-11/12 md:ml-12 md:font-medium">
+              Lorem Ipsum is simply dummy text of printing and typesetting
+              industry.
+            </p>
+            <div className="container mx-auto px-4 translate-y-96 flex flex-row">
+              <p className="text-white text-left translate-y-8 ml-2 text-sm">
+                Copyright © 2022 Octilus Technologies
+              </p>
+              <div className="flex flex-row translate-y-8 scale-75 translate-x-44">
+                <a href="https://www.facebook.com" className="text-white mx-3">
+                  <FaFacebookF className="text-2xl" />
+                </a>
+                <a href="https://www.linkedin.com" className="text-white mx-3">
+                  <FaLinkedinIn className="text-2xl" />
+                </a>
+                <a href="https://twitter.com" className="text-white mx-3">
+                  <FaTwitter className="text-2xl" />
+                </a>
+                <a href="https://www.instagram.com" className="text-white mx-3">
+                  <FaInstagram className="text-2xl" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-
         <div className="flex">
           <div className="pl-8 w-screen">
             <h1 className="pt-8 font-bold text-3xl mt-16 mb-8">
@@ -109,7 +171,7 @@ const Login = () => {
                 <input
                   type="radio"
                   name="male"
-                  className="w-4 h-4 text-[#2bb37c] bg-gray-100 border-gray-300 rounded-md"
+                  className="w-4 h-4 text-[#2bb37c] bg-[#2bb37c] border-gray-300"
                   value="Male"
                   onChange={(e) =>
                     setCollectDetails({
